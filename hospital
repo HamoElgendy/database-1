@@ -1,0 +1,39 @@
+<?php
+    function printResults($toprint)
+    {
+      echo "<table border='1'>
+      <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>age</th>
+      <th>illness</th>
+      </tr>";
+      foreach($toprint as $row)
+      {
+        echo "<tr>";
+        echo "<td>" . $row['ID'] . "</td>";
+        echo "<td>" . $row['Name'] . "</td>";
+        echo "<td>" . $row['age'] . "</td>";
+        echo "<td>" . $row['illness'] . "</td>";
+        echo "</tr>";
+      }
+      echo "</table><br/>";
+    }
+    function showAllStudents()
+    {
+      $user = "root";
+      $pass = "root";
+      //opens database connection
+      try
+      {
+        $dbh = new PDO('mysql:host=localhost:
+3306;dbname=hospital', $user, $pass);
+      } catch (PDOException $e) {
+          print "Error!: " . $e->getMessage() . "<br/>";
+          die();
+      }
+      $result = $dbh->query('SELECT * from patient');
+      printResults($result);
+      $dbh = null;
+    }
+    showAllStudents();
